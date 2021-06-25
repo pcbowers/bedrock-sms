@@ -18,12 +18,12 @@ export async function getServerSideProps(context) {
   // return { props {} }
   return {
     redirect: {
-      destination: '/admin',
+      destination: '/home',
       permanent: false,
     }
   }
 }
 
-export default function Home() {
+export default function PublicHome() {
   return <></>
 }
