@@ -4,7 +4,7 @@ import { broadcastMessage } from '../../../src/twilio_functions'
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
-  const { tag = "", body } = req.query
+  const { tag = "all", body } = req.query
 
   if (session) { // logged in
     try {
