@@ -1,8 +1,6 @@
 import { twilio } from "../../../src/twilio_functions"
 
 export default async (req, res) => {
-  // const { MessageSid, SmsSid, SmsStatus, MessageStatus, To, AccountSid, From, ApiVersion } = req.query
-  console.log(req.headers)
   const validation = twilio.validateRequest(
     process.env.TWILIO_AUTH_TOKEN,
     req.headers["x-twilio-signature"],

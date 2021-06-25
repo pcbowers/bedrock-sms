@@ -4,11 +4,10 @@ import { subscribeContacts } from '../../../src/twilio_functions'
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
-  const { contacts } = req.query
 
   if (session) { // logged in
     try {
-      const data = await subscribeContacts(JSON.parse(contacts))
+      const data = await subscribeContacts(req.body)
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {

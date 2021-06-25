@@ -4,11 +4,10 @@ import { deleteContacts } from '../../../src/twilio_functions'
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
-  const { bindingIDs } = req.query
 
   if (session) { // logged in
     try {
-      const data = await deleteContacts(JSON.parse(bindingIDs))
+      const data = await deleteContacts(req.body)
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {
