@@ -6,15 +6,14 @@ export default async (req, res) => {
   const validation = twilio.validateRequest(
     process.env.TWILIO_AUTH_TOKEN,
     req.headers["x-twilio-signature"],
-    req.body,
-    process.env.NEXTAUTH_URL + "/api/twilio/status"
+    process.env.NEXTAUTH_URL + "/api/twilio/status",
+    req.body
   )
 
   if (validation) { // logged in
     try {
       console.log(req.body)
       res.status(200)
-      res.setHeader('Content-Type', 'text/xml')
       res.send(req.body)
     } catch (error) {
       res.status(400)
