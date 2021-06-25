@@ -1,11 +1,14 @@
-import { getSession } from 'next-auth/client'
+import { twilio } from "../../../src/twilio_functions"
 
 export default async (req, res) => {
-  // get session
-  const session = await getSession({ req })
   const { MessageSid, SmsSid, SmsStatus, MessageStatus, To, AccountSid, From, ApiVersion } = req.query
-
-  if (session) { // logged in
+  console.log(process.env.NEXTAUTH_URL + "/api/twilio/status")
+  if (twilio.validateRequest(
+    process.env.TWILIO_AUTH_TOKEN,
+    req.headers["x-twilio-signature"],
+    req.body,
+    process.env.NEXTAUTH_URL + "/api/twilio/status"
+  )) { // logged in
     try {
       console.log(req.query)
       res.status(200)
