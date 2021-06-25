@@ -29,6 +29,19 @@ export const listContact = async (bindingID) => {
   return await service.bindings(bindingID).fetch()
 }
 
+export const listMessages = async (number) => {
+  return [
+    ...(await client.messages.list({
+      from: number,
+      to: process.env.TWILIO_NUMBER
+    })),
+    ...(await client.messages.list({
+      from: process.env.TWILIO_NUMBER,
+      to: number
+    }))
+  ].sort((a, b) => Date.parse(b.dateUpdated) - Date.parse(a.dateUpdated))
+}
+
 export const listContacts = async (tag = "all") => {
   return await service.bindings.list({
     tag: tag
@@ -57,7 +70,8 @@ export const subscribeContacts = pluralizer(subscribeContact)
 export const broadcastMessage = async (tag = "all", body) => {
   return await service.notifications.create({
     tag: tag,
-    body: body
+    body: body,
+    deliveryCallbackUrl: process.env.NEXTAUTH_URL + "/api/twilio/status"
   })
 }
 
