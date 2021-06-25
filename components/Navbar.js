@@ -1,4 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
+
+import LogoLight from '../public/bedrock_logo.png'
+import LogoDark from '../public/bedrock_logo_dark.png'
 
 import { useState } from "react"
 import { signOut } from 'next-auth/client'
@@ -25,10 +29,14 @@ export default function Navbar(props) {
       <div className="container px-6 py-4 mx-auto">
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex items-center justify-between">
-            <div className="h-8 text-xl font-semibold text-gray-700">
+            <div className="relative h-10 w-40 text-xl font-semibold text-gray-700">
               <Link href="/home"><a className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
-                <img src="/bedrock_logo_dark.png" className="object-cover h-8 hidden dark:block" />
-                <img src="/bedrock_logo.png" className="object-cover h-8 dark:hidden" />
+                <div className="hidden dark:block">
+                  <Image src={LogoDark} layout="fill" display="none" objectFit="contain" />
+                </div>
+                <div className="block dark:hidden">
+                  <Image src={LogoLight} style="display: none;" layout="fill" objectFit="contain" />
+                </div>
               </a></Link>
 
             </div>
@@ -64,8 +72,8 @@ export default function Navbar(props) {
 
             <div className="flex items-center mt-4 md:mt-0">
               <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown" onClick={toggleUser}>
-                <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                  <img src={props.user.image} alt="avatar" className="object-fill w-full h-full" />
+                <div className="relative w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
+                  <Image src={props.user.image} layout="fill" objectFit="cover" alt="avatar" />
                 </div>
 
                 <h3 className="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden">

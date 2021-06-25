@@ -1,6 +1,12 @@
 import Head from 'next/head'
+import Image from 'next/image'
 
 import { useSession, getSession } from 'next-auth/client'
+
+import ContactImage from "../public/contact.jpg"
+import KeywordImage from "../public/keyword.jpg"
+import BroadcastImage from "../public/broadcast.jpg"
+import AdminImage from "../public/admin.jpg"
 
 import Navbar from '../components/Navbar';
 
@@ -42,7 +48,7 @@ export default function PrivateHome() {
         <div className="flex items-center justify-center">
           <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
-              <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src="https://images.unsplash.com/photo-1528642474498-1af0c17fd8c3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="avatar" />
+              <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={ContactImage} alt="avatar" />
 
               <div className="mt-2">
                 <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">Edit Contacts</h3>
@@ -51,7 +57,7 @@ export default function PrivateHome() {
             </div>
 
             <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
-              <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src="https://images.unsplash.com/photo-1597392582469-a697322d5c16?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
+              <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={KeywordImage} alt="avatar" />
 
               <div className="mt-2">
                 <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">Edit Keywords</h3>
@@ -60,7 +66,7 @@ export default function PrivateHome() {
             </div>
 
             <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
-              <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src="https://images.unsplash.com/photo-1545987796-200677ee1011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
+              <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={BroadcastImage} alt="avatar" />
 
               <div className="mt-2">
                 <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">Broadcast Message</h3>
@@ -69,7 +75,7 @@ export default function PrivateHome() {
             </div>
 
             <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
-              <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src="https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="avatar" />
+              <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={AdminImage} alt="avatar" />
 
               <div className="mt-2">
                 <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">Edit Admins</h3>
