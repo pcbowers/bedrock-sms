@@ -1,13 +1,15 @@
 import { getSession } from 'next-auth/client'
-import { listContacts } from '../../../../../lib/twilio_functions'
+import { subscribeContacts } from '../../../../../lib/twilio_functions'
 
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
+  const { number } = req.query
+  console.log(req.body)
 
   if (session) { // logged in
     try {
-      const data = await listContacts(req.body)
+      // const data = await subscribeContacts(req.body)
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {

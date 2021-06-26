@@ -1,4 +1,4 @@
-import { twilio } from "../../../src/twilio_functions"
+import { twilio } from "../../../lib/twilio_functions"
 
 export default async (req, res) => {
   const validation = twilio.validateRequest(

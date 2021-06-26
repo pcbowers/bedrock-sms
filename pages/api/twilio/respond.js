@@ -1,4 +1,4 @@
-import { respondToMessage } from '../../../src/twilio_functions'
+import { respondToMessage } from '../../../lib/twilio_functions'
 
 export default async (req, res) => {
   try {

@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/client'
-import { broadcastMessage } from '../../../../src/twilio_functions'
+import { broadcastMessage } from '../../../../lib/twilio_functions'
 
 export default async (req, res) => {
   // get session

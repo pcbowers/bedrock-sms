@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/client'
-import { listContact } from '../../../../../src/twilio_functions'
+import { listContact } from '../../../../../lib/twilio_functions'
 
 export default async (req, res) => {
   // get session
