@@ -1,14 +1,15 @@
 import { getSession } from 'next-auth/client'
-import { listContacts } from '../../../src/twilio_functions'
+import { deleteContacts } from '../../../../src/twilio_functions'
 
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
-  const { tag } = req.query
+
+  const { bindingID } = req.query
 
   if (session) { // logged in
     try {
-      const data = await listContacts(tag)
+      const data = await deleteContacts([bindingID])
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {

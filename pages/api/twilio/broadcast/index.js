@@ -1,14 +1,13 @@
 import { getSession } from 'next-auth/client'
-import { broadcastMessage } from '../../../src/twilio_functions'
+import { broadcastMessage } from '../../../../src/twilio_functions'
 
 export default async (req, res) => {
   // get session
   const session = await getSession({ req })
-  const { tag = "all" } = req.query
 
   if (session) { // logged in
     try {
-      const data = await broadcastMessage(tag, req.body)
+      const data = await broadcastMessage("all", req.body)
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {

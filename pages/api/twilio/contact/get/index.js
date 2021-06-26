@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/client'
-import { deleteContacts } from '../../../src/twilio_functions'
+import { listContacts } from '../../../src/twilio_functions'
 
 export default async (req, res) => {
   // get session
@@ -7,7 +7,7 @@ export default async (req, res) => {
 
   if (session) { // logged in
     try {
-      const data = await deleteContacts(req.body)
+      const data = await listContacts(req.body)
       res.status(200)
       res.json(JSON.stringify({ body: data }))
     } catch (error) {
