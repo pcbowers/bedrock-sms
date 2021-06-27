@@ -1,17 +1,7 @@
-import { getSession } from 'next-auth/client'
+import withSessionAuthentication from '../../lib/middleware/session_auth'
 
-export default async (req, res) => {
-  // get session
-  const session = await getSession({ req })
-
-  if (session) { // logged in
-    res.status(200)
-    res.json(JSON.stringify({ body: "success" }))
-  } else { // logged out
-    res.status(401)
-    res.json(JSON.stringify({ error: "user unauthorized" }))
-  }
-
-  // end api call
-  res.end()
+const handler = async (req, res) => {
+  return res.status(200).json(JSON.stringify({ body: "success" }))
 }
+
+export default withSessionAuthentication(handler)
