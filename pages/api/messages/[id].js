@@ -8,7 +8,16 @@ const handler = async (req, res) => {
   const { id } = req.query
 
   console.log(req.body)
-  console.log(req.body.DeliveryState)
+  console.log(req.body.Count)
+  console.log(req.body["DeliveryState[0]"])
+
+  const num = 0
+  for (var key in req.body) {
+    if (key === `DeliveryState${num}`) {
+      num++
+      console.log("delivery state found")
+    }
+  }
 
   try {
     let results

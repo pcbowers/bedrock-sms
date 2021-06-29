@@ -76,10 +76,10 @@ export default function Navbar(props) {
               <div className="relative h-10 w-40 text-xl font-semibold text-gray-700">
                 <Link href="/home"><a className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
                   <div className="hidden dark:block">
-                    <Image src={LogoDark} layout="fill" display="none" objectFit="contain" />
+                    <Image src={LogoDark} layout="fill" display="none" objectFit="contain" alt="logo" />
                   </div>
                   <div className="block dark:hidden">
-                    <Image src={LogoLight} style="display: none;" layout="fill" objectFit="contain" />
+                    <Image src={LogoLight} style="display: none;" layout="fill" objectFit="contain" alt="logo" />
                   </div>
                 </a></Link>
 
