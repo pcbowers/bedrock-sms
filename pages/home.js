@@ -1,7 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
 
-import { useSession, getSession } from 'next-auth/client'
+import Image from 'next/image'
 
 import ContactImage from "../public/contact.jpg"
 import KeywordImage from "../public/keyword.jpg"
@@ -21,24 +19,9 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function PrivateHome() {
-  const [session] = useSession()
-
-  const handleSignout = (e) => {
-    e.preventDefault()
-    signOut()
-  }
-
+export default function PrivateHome({ session }) {
   return <>
-    <Head>
-      <title>Bedrock SMS</title>
-      <meta name="description" content="NextJS Auth Template" />
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-
-    <header>
-      <Navbar user={session.user} />
-    </header>
+    <Navbar user={session.user} />
 
     <main className="w-full h-full mt-10 flex justify-center content-center items-center">
       <section className="container p-6 mx-auto bg-white dark:bg-gray-800">
