@@ -7,10 +7,10 @@ import { updateLog } from '../../../lib/airtable_functions'
 const handler = async (req, res) => {
   const { id } = req.query
 
+  console.log(req.body)
+
   try {
     let results
-
-    console.log(req.body)
 
     if (req.method === "GET") {
       results = `TODO. Getting list of 1 broadcast. id: ${id}.`
