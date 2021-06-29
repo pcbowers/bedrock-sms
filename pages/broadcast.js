@@ -19,7 +19,13 @@ export async function getServerSideProps(context) {
 export default function BroadcastMessage({ session }) {
   const [message, setMessage] = useState("")
   const [tag, setTag] = useState("")
+  const [broadcasts, setBroadcasts] = useState(null)
+
   const [calculator, setCalculator] = useState(SMSCalculator.getCount(""))
+
+  useEffect(async () => {
+    setBroadcasts(await (await (await fetch("/api/messages?tag=all")).json()))
+  }, [])
 
   useEffect(() => {
     setCalculator(SMSCalculator.getCount(message))
@@ -75,6 +81,6 @@ export default function BroadcastMessage({ session }) {
         </form>
       </section>
     </main>
-
+    <pre className="text-gray-700 dark:text-gray-100">{JSON.stringify(broadcasts, null, 2)}</pre>
   </>
 }
