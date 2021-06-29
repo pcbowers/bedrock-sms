@@ -10,6 +10,7 @@ const handler = async (req, res) => {
     let results
 
     if (req.method === "GET") {
+      console.log(req.body) // figuring out payload
       results = `TODO. Getting list of broadcasts. Filtering by tag: ${tag} (no tag means no filtering).`
     } else if (req.method === "POST") {
       if (!Array.isArray(req.body)) req.body = [req.body]

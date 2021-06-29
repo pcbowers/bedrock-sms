@@ -10,6 +10,7 @@ const handler = async (req, res) => {
     let results
 
     if (req.method === "POST") {
+      console.log(req.body) // figuring out payload
       results = await twimlResponse(`TODO. Callback function for keywords. keyword: ${keyword}.`)
     }
 
