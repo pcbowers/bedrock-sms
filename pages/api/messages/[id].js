@@ -48,6 +48,7 @@ const handler = async (req, res) => {
 
     return res.status(200).json(JSON.stringify({ body: results }))
   } catch (error) {
+    console.log(error.message)
     return res.status(400).json(JSON.stringify({ error: error.message }))
   }
 }
