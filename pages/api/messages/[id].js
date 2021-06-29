@@ -23,7 +23,7 @@ const handler = async (req, res) => {
 
       let deliveryData = []
 
-      const curDeliveryState = 0;
+      let curDeliveryState = 0;
       while (curDeliveryState >= 0) {
         const contact = req.body[`DeliveryState[${curDeliveryState}]`]
 
@@ -35,8 +35,6 @@ const handler = async (req, res) => {
           curDeliveryState = -1
         }
       }
-
-      console.log(req.body) // figuring out payload
 
       results = await updateLog({
         id,
