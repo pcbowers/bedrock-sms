@@ -28,6 +28,7 @@ const handler = async (req, res) => {
       let curDeliveryState = 0;
       while (curDeliveryState >= 0) {
         const contact = req.body[`DeliveryState[${curDeliveryState}]`]
+        console.log(contact)
 
         if (contact && contact.status) {
           deliveryData.push(contact)
