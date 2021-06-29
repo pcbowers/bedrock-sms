@@ -1,7 +1,7 @@
 import withSessionAuthentication from '../../lib/middleware/session_auth'
 import withMethod from '../../lib/middleware/method'
 
-import { createMessages } from '../../lib/twilio_functions'
+import { getContacts, createContacts, deleteContacts, putContacts, patchContacts } from '../../lib/twilio_functions'
 
 const handler = async (req, res) => {
   const { tag } = req.query
@@ -10,9 +10,15 @@ const handler = async (req, res) => {
     let results
 
     if (req.method === "GET") {
-      results = `TODO. Getting list of broadcasts. Filtering by ${tag} (no tag means no filtering).`
+      results = await getContacts(tag)
     } else if (req.method === "POST") {
-      results = await createMessages(req.body)
+      results = await createContacts(req.body)
+    } else if (req.method === "DELETE") {
+      results = await deleteContacts(req.body)
+    } else if (req.method === "PUT") {
+      results = await putContacts(req.body)
+    } else if (req.method === "PATCH") {
+      results = await patchContacts(req.body)
     }
 
     return res.status(200).json(JSON.stringify({ body: results }))
@@ -21,4 +27,4 @@ const handler = async (req, res) => {
   }
 }
 
-export default withMethod(withSessionAuthentication(handler), ["GET", "POST"])
+export default withMethod(withSessionAuthentication(handler), ["GET", "POST", "DELETE", "PUT", "PATCH"])
