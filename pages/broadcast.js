@@ -64,7 +64,7 @@ export default function BroadcastMessage({ session }) {
             <textarea className="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" placeholder="Message to be Broadcast" value={message} onChange={e => setMessage(e.target.value)}></textarea>
             <div className="text-right text-gray-400 dark:text-gray-500">{calculator.remaining}/{calculator.maxCharCount} chars remaining ({calculator.numberOfSMS} SMS Messages)</div>
           </div>
-          <div class="flex justify-center mt-6">
+          <div className="flex justify-center mt-6">
             <input type="submit" className="px-4 py-2 text-white transition-colors duration-200 transform bg-yellow-600 rounded-md hover:bg-yellow-700 focus:outline-none focus:bg-yellow-700" value="Send Message" />
           </div>
         </form>
