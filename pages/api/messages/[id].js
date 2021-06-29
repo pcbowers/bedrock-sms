@@ -27,13 +27,20 @@ const handler = async (req, res) => {
 
       let curDeliveryState = 0;
       while (curDeliveryState >= 0) {
-        const contact = req.body[`DeliveryState[${curDeliveryState}]`]
-        console.log(contact)
+        let contact = req.body[`DeliveryState[${curDeliveryState}]`]
 
-        if (contact && contact.status) {
+        if (contact) {
+          contact = JSON.parse(contact)
+          console.log(contact)
+
           deliveryData.push(contact)
           counts[contact.status.toLowerCase()] += 1
           curDeliveryState++
+        } else {
+          curDeliveryState = -1
+        }
+        if (contact && contact.status) {
+
         } else {
           curDeliveryState = -1
         }
