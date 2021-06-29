@@ -2,18 +2,16 @@ import withTwilioAuthentication from '../../../lib/middleware/twilio_auth'
 import withSessionAuthentication from '../../../lib/middleware/session_auth'
 import withMethod from '../../../lib/middleware/method'
 
-import { updateLog } from '../../../lib/airtable_functions'
+import { updateLog, getLog } from '../../../lib/airtable_functions'
 
 const handler = async (req, res) => {
   const { id } = req.query
-
-  console.log(req.body)
 
   try {
     let results
 
     if (req.method === "GET") {
-      results = `TODO. Getting list of 1 broadcast. id: ${id}.`
+      results = await getLog(id)
     } else if (req.method === "POST") {
       let counts = {
         sent: 0,
@@ -27,25 +25,25 @@ const handler = async (req, res) => {
 
       let curDeliveryState = 0;
       while (curDeliveryState >= 0) {
+        // get contact from body
         let contact = req.body[`DeliveryState[${curDeliveryState}]`]
 
-        if (contact) {
+        if (contact) { // deilvery state exists
+          // parse JSON
           contact = JSON.parse(contact)
-          console.log(contact)
 
+          // add count
           deliveryData.push(contact)
           counts[contact.status.toLowerCase()] += 1
-          curDeliveryState++
-        } else {
-          curDeliveryState = -1
-        }
-        if (contact && contact.status) {
 
-        } else {
+          // check the next delivery state
+          curDeliveryState++
+        } else { // no more delivery states
           curDeliveryState = -1
         }
       }
 
+      // add log to AT databases
       results = await updateLog({
         id,
         body: {
@@ -58,7 +56,6 @@ const handler = async (req, res) => {
 
     return res.status(200).json(JSON.stringify({ body: results }))
   } catch (error) {
-    console.log(error.message)
     return res.status(400).json(JSON.stringify({ error: error.message }))
   }
 }

@@ -2,7 +2,7 @@ import withSessionAuthentication from '../../lib/middleware/session_auth'
 import withMethod from '../../lib/middleware/method'
 
 import { createMessages } from '../../lib/twilio_functions'
-import { createLogs } from '../../lib/airtable_functions'
+import { createLogs, getLogs } from '../../lib/airtable_functions'
 
 const handler = async (req, res) => {
   const { tag } = req.query
@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     let results
 
     if (req.method === "GET") {
-      results = `TODO. Getting list of broadcasts. Filtering by tag: ${tag} (no tag means no filtering).`
+      results = await getLogs(tag)
     } else if (req.method === "POST") {
       if (!Array.isArray(req.body)) req.body = [req.body]
 
