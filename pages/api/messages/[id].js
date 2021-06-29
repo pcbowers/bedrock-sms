@@ -7,12 +7,14 @@ import { updateLog } from '../../../lib/airtable_functions'
 const handler = async (req, res) => {
   const { id } = req.query
 
+  console.log(req.body)
+  console.log(req.body.DeliveryState)
+
   try {
     let results
 
     if (req.method === "GET") {
       results = `TODO. Getting list of 1 broadcast. id: ${id}.`
-
     } else if (req.method === "POST") {
       let counts = {
         sent: 0,
@@ -24,7 +26,7 @@ const handler = async (req, res) => {
 
       req.body.DeliveryState.forEach(contact => {
         const status = contact.status.toLowerCase()
-        counts[status] = counts[status]++
+        counts[status] += 1
       });
 
       console.log(req.body) // figuring out payload
@@ -32,7 +34,7 @@ const handler = async (req, res) => {
       results = await updateLog({
         id,
         body: {
-          total: req.body.Count,
+          total: parseInt(req.body.Count),
           data: JSON.stringify(req.body.DeliveryState),
           ...counts
         }
