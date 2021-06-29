@@ -12,6 +12,7 @@ const handler = async (req, res) => {
     if (req.method === "GET") {
       results = `TODO. Getting list of broadcasts. Filtering by tag: ${tag} (no tag means no filtering).`
     } else if (req.method === "POST") {
+      if (!Array.isArray(req.body)) req.body = [req.body]
       results = await createMessages(req.body)
     }
 
