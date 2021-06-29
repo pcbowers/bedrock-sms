@@ -1,15 +1,22 @@
 import withSessionAuthentication from '../../../../lib/middleware/session_auth'
 import withMethod from '../../../../lib/middleware/method'
 
+import { getContactHistory } from '../../../../lib/twilio_functions'
+
 const handler = async (req, res) => {
+  const { id } = req.query
+
   try {
-    // TODO: add broadcast history here
-    // const results = await historyContact(identity)
-    const results = "all broadcast history here"
+    let results
+
+    if (req.method === "GET") {
+      results = await getContactHistory(id)
+    }
+
     return res.status(200).json(JSON.stringify({ body: results }))
   } catch (error) {
     return res.status(400).json(JSON.stringify({ error: error.message }))
   }
 }
 
-export default withMethod(withSessionAuthentication(handler), "GET")
+export default withMethod(withSessionAuthentication(handler), ["GET"])

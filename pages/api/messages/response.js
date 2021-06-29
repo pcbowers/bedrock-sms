@@ -4,14 +4,20 @@ import withMethod from '../../../lib/middleware/method'
 import { twimlResponse } from '../../../lib/twilio_functions'
 
 const handler = async (req, res) => {
+  const { keyword } = req.query
+
   try {
-    // TODO: Look up keywords 
-    console.log(req.body)
-    const results = await twimlResponse("responses coming soon!")
-    return res.status(200).json(JSON.stringify({ body: results }))
+    let results
+
+    if (req.method === "POST") {
+      results = await twimlResponse(`TODO. Callback function for keywords. keyword: ${keyword}.`)
+    }
+
+    res.setHeader('Content-Type', 'text/xml')
+    res.status(200).send(results)
   } catch (error) {
     return res.status(400).json(JSON.stringify({ error: error.message }))
   }
 }
 
-export default withMethod(withTwilioAuthentication(handler), "POST")
+export default withMethod(withTwilioAuthentication(handler), ["POST"])
