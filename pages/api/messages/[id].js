@@ -10,6 +10,8 @@ const handler = async (req, res) => {
   try {
     let results
 
+    console.log(req.body)
+
     if (req.method === "GET") {
       results = `TODO. Getting list of 1 broadcast. id: ${id}.`
     } else if (req.method === "POST") {
@@ -27,7 +29,7 @@ const handler = async (req, res) => {
       while (curDeliveryState >= 0) {
         const contact = req.body[`DeliveryState[${curDeliveryState}]`]
 
-        if (contact) {
+        if (contact && contact.status) {
           deliveryData.push(contact)
           counts[contact.status.toLowerCase()] += 1
           curDeliveryState++

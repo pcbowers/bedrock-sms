@@ -28,6 +28,11 @@ export default function BroadcastMessage({ session }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (message === "") {
+      alert("You must enter a broadcast message.")
+      return
+    }
+
     const body = { message: message }
     if (tag) body.tag = tag
 
