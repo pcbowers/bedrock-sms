@@ -10,6 +10,7 @@ const handler = async (req, res) => {
     if (req.method === "GET") {
       results = `TODO. Getting list of 1 broadcast. id: ${id}.`
     } else if (req.method === "POST") {
+      console.log(req.body) // figuring out payload
       results = `TODO. Saving 1 broadcast. id: ${id}.`
     }
 
