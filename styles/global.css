@@ -1,3 +1,7 @@
 html, body {
-  @apply mx-auto bg-white dark:bg-gray-800
+  @apply mx-auto bg-white dark:bg-gray-700
+}
+
+body {
+  min-height: 100vh
 }

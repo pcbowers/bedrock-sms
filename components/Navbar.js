@@ -4,16 +4,34 @@ import Image from 'next/image'
 import LogoLight from '../public/bedrock_logo.png'
 import LogoDark from '../public/bedrock_logo_dark.png'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { signOut } from 'next-auth/client'
 
 export default function Navbar(props) {
   const [menuClass, setMenuClass] = useState("hidden")
   const [userClass, setUserClass] = useState("md:hidden")
+  const [darkMode, setDarkMode] = useState("light");
 
   const toggleMenu = () => {
     setMenuClass(menuClass === "hidden" ? "block" : "hidden")
   }
+
+  useEffect(() => {
+    if (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setDarkMode("dark")
+      document.documentElement.classList.add("dark")
+    } else if (localStorage.theme) {
+      setDarkMode(localStorage.theme)
+      if (localStorage.theme === "dark") {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+    } else {
+      setDarkMode("light")
+      document.documentElement.classList.remove("dark")
+    }
+  }, [])
 
   const toggleUser = () => {
     setUserClass(userClass === "md:hidden" ? "md:block" : "md:hidden")
@@ -22,6 +40,31 @@ export default function Navbar(props) {
   const handleSignout = (e) => {
     e.preventDefault()
     signOut()
+  }
+
+  const toggleDarkMode = () => {
+    localStorage.theme = darkMode === "dark" ? "light" : "dark"
+    setDarkMode(localStorage.theme)
+    if (darkMode === "dark") {
+      setDarkMode("light")
+      localStorage.theme = "light"
+      document.documentElement.classList.remove("dark")
+    } else {
+      setDarkMode("dark")
+      localStorage.theme = "dark"
+      document.documentElement.classList.add("dark")
+    }
+  }
+
+  let modeIcon
+  if (darkMode !== "dark") {
+    modeIcon = <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg >
+  } else {
+    modeIcon = <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
   }
 
   return (
@@ -72,6 +115,10 @@ export default function Navbar(props) {
               </div>
 
               <div className="flex items-center mt-4 md:mt-0">
+                <button className="mr-4 text-gray-600 md:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none" aria-label="show notifications" onClick={toggleDarkMode}>
+                  {modeIcon}
+                </button>
+
                 <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown" onClick={toggleUser}>
                   <div className="relative w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
                     <Image src={props.user.image} layout="fill" objectFit="cover" alt="avatar" />
@@ -85,7 +132,7 @@ export default function Navbar(props) {
                   </h3>
                 </button>
 
-                <div className={"hidden md:block absolute lg:top-16 md:top-20 right-2 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl bg-gray-100 dark:bg-gray-700 " + userClass}>
+                <div className={"hidden bg-gray-100 md:block absolute lg:top-18 md:top-20 right-2 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl bg-gray-100 dark:bg-gray-600 " + userClass}>
                   <h3 className="text-center mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                     Hello, <b>{props.user.name}</b><br />
                     <a className="underline" onClick={handleSignout} >
@@ -97,7 +144,7 @@ export default function Navbar(props) {
             </div>
           </div>
         </div>
-      </nav>
-    </header>
+      </nav >
+    </header >
   )
 }

@@ -1,6 +1,8 @@
 
 import Image from 'next/image'
 
+import { getSession } from 'next-auth/client'
+
 import ContactImage from "../public/contact.jpg"
 import KeywordImage from "../public/keyword.jpg"
 import BroadcastImage from "../public/broadcast.jpg"
@@ -21,16 +23,17 @@ export async function getServerSideProps(context) {
 
 export default function PrivateHome({ session }) {
   return <>
+    <header></header>
     <Navbar user={session.user} />
 
     <main className="w-full h-full mt-10 flex justify-center content-center items-center">
-      <section className="container p-6 mx-auto bg-white dark:bg-gray-800">
+      <section className="container p-6 mx-auto bg-white dark:bg-gray-700">
         <h2 className="text-center text-xl font-medium text-gray-800 capitalize dark:text-white md:text-2xl">Hello <span className="text-yellow-600">{session.user.name}</span>.</h2>
         <h3 className="text-center text-lg font-medium text-gray-800 capitalize dark:text-white md:text:xl">What do you want to do today?</h3>
 
         <div className="flex items-center justify-center">
           <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
+            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
               <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={ContactImage} alt="avatar" />
 
               <div className="mt-2">
@@ -39,7 +42,7 @@ export default function PrivateHome({ session }) {
               </div>
             </div>
 
-            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
+            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
               <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={KeywordImage} alt="avatar" />
 
               <div className="mt-2">
@@ -48,7 +51,7 @@ export default function PrivateHome({ session }) {
               </div>
             </div>
 
-            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
+            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
               <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={BroadcastImage} alt="avatar" />
 
               <div className="mt-2">
@@ -57,7 +60,7 @@ export default function PrivateHome({ session }) {
               </div>
             </div>
 
-            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-2xl pb-3 rounded-lg">
+            <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
               <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={AdminImage} alt="avatar" />
 
               <div className="mt-2">
