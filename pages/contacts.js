@@ -133,24 +133,30 @@ export default function EditContacts({ session }) {
     {
       Header: "Tags",
       accessor: "tags",
-      Cell: ({ cell: { value } }) => <Tags values={value} />
+      Cell: function TagCells({ cell: { value } }) {
+        return <Tags values={value} />
+      }
     },
     {
       Header: "Last Updated",
       accessor: "dateUpdated",
-      Cell: ({ cell: { value } }) => new Date(value).toLocaleString("en-US", {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-      })
+      Cell: function DateCells({ cell: { value } }) {
+        return new Date(value).toLocaleString("en-US", {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        })
+      }
     },
     {
       Header: "Actions",
-      Cell: ({ data, row }) => <Actions data={data} row={row} setData={setData} />
+      Cell: function ActionCells({ data, row }) {
+        return <Actions data={data} row={row} setData={setData} />
+      }
     }
   ], [])
 

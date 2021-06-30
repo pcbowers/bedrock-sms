@@ -83,15 +83,17 @@ export default function BroadcastMessage({ session }) {
     {
       Header: "Date Sent",
       accessor: "date",
-      Cell: ({ cell: { value } }) => new Date(value).toLocaleString("en-US", {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-      })
+      Cell: function DateCells({ cell: { value } }) {
+        return new Date(value).toLocaleString("en-US", {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        })
+      }
     },
     {
       Header: "Total",
