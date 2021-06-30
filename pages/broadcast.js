@@ -24,7 +24,7 @@ export default function BroadcastMessage({ session }) {
   const [calculator, setCalculator] = useState(SMSCalculator.getCount(""))
   const [data, setData] = useState([])
 
-  useEffect(async () => {
+  useEffect(() => {
     (async () => {
       const results = await (await fetch("/api/tags")).json()
       setTags(results.body)
@@ -117,7 +117,7 @@ export default function BroadcastMessage({ session }) {
       Header: "Undelivered",
       accessor: "undelivered"
     },
-  ])
+  ], [])
 
   return <>
     <Navbar user={session.user} />

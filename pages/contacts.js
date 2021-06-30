@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const Tags = ({ values }) => {
+export function Tags({ values }) {
   return (
     <>
       {values.map((tag, idx) => {
@@ -31,7 +31,7 @@ const Tags = ({ values }) => {
   );
 }
 
-const Actions = ({ data, row, setData }) => {
+export function Actions({ data, row, setData }) {
   return (
     <div className="flex item-center justify-center">
       <button onClick={async () => {
@@ -152,7 +152,7 @@ export default function EditContacts({ session }) {
       Header: "Actions",
       Cell: ({ data, row }) => <Actions data={data} row={row} setData={setData} />
     }
-  ])
+  ], [])
 
   return <>
     <Navbar user={session.user} />
