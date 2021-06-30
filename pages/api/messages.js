@@ -15,14 +15,14 @@ const handler = async (req, res) => {
     } else if (req.method === "POST") {
       if (!Array.isArray(req.body)) req.body = [req.body]
 
-      results = await createMessages(req.body)
+      let preresults = await createMessages(req.body)
 
-      await createLogs([{
-        tag: results[0].tags[0],
-        body: results[0].body,
-        dateCreated: results[0].dateCreated,
-        id: results[0].id
-      }])
+      results = await createLogs(preresults.map(result => ({
+        tag: result.tags[0],
+        body: result.body,
+        date: result.date,
+        id: result.id
+      })))
     }
 
     return res.status(200).json(JSON.stringify({ body: results }))

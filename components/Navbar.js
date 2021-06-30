@@ -7,7 +7,7 @@ import LogoDark from '../public/bedrock_logo_dark.png'
 import { useState, useEffect } from "react"
 import { signOut } from 'next-auth/client'
 
-export default function Navbar(props) {
+export default function Navbar({ user }) {
   const [menuClass, setMenuClass] = useState("hidden")
   const [userClass, setUserClass] = useState("md:hidden")
   const [darkMode, setDarkMode] = useState("light");
@@ -96,7 +96,7 @@ export default function Navbar(props) {
 
             <div className={"flex-1 md:flex md:items-center md:justify-between " + menuClass}>
               <div className="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
-                <Link href="#" >
+                <Link href="/contacts" >
                   <a className="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700">Edit Contacts</a>
                 </Link>
 
@@ -121,11 +121,11 @@ export default function Navbar(props) {
 
                 <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown" onClick={toggleUser}>
                   <div className="relative w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                    <Image src={props.user.image} layout="fill" objectFit="cover" alt="avatar" />
+                    <Image src={user.image} layout="fill" objectFit="cover" alt="avatar" />
                   </div>
 
                   <h3 className="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden">
-                    Hello, <b>{props.user.name}. </b>
+                    Hello, <b>{user.name}. </b>
                     <a className="underline" onClick={handleSignout} >
                       Sign Out?
                     </a>
@@ -134,7 +134,7 @@ export default function Navbar(props) {
 
                 <div className={"hidden bg-gray-100 md:block absolute lg:top-18 md:top-20 right-2 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl bg-gray-100 dark:bg-gray-600 " + userClass}>
                   <h3 className="text-center mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-                    Hello, <b>{props.user.name}</b><br />
+                    Hello, <b>{user.name}</b><br />
                     <a className="underline" onClick={handleSignout} >
                       Sign Out?
                     </a>

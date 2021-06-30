@@ -7,6 +7,8 @@
 
 # temporary
 api-old
+*test.js
+*test.mjs
 
 # testing
 /coverage

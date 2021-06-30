@@ -33,13 +33,12 @@ export default function PrivateHome({ session }) {
 
         <div className="flex items-center justify-center">
           <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <Link href="#">
+            <Link href="/contacts">
               <a>
                 <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
                   <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={ContactImage} alt="avatar" />
                   <div className="mt-2">
                     <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">Edit Contacts</h3>
-                    <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">Coming Soon</span>
                   </div>
                 </div>
               </a>
