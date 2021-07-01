@@ -132,7 +132,7 @@ export default function EditContacts({ session }) {
         alert(`Creation failed. See the following message: ${error.message}`)
       }
     } else if (newNumbers !== null) {
-      alert("Please try again. The tags must only include lowercase letters")
+      alert("Please try again. The number must be formatted properly.")
     }
   }
 

@@ -1,7 +1,7 @@
 import withSessionAuthentication from '../../lib/middleware/session_auth'
 import withMethod from '../../lib/middleware/method'
 
-import { getAdmins } from '../../lib/airtable_functions'
+import { getAdmins, createAdmins } from '../../lib/airtable_functions'
 
 const handler = async (req, res) => {
   const { "function": func } = req.query
@@ -10,6 +10,8 @@ const handler = async (req, res) => {
 
     if (req.method === "GET") {
       results = await getAdmins()
+    } else if (req.method === "POST") {
+      results = await createAdmins(req.body)
     }
 
     return res.status(200).json(JSON.stringify({ body: results }))
@@ -18,4 +20,4 @@ const handler = async (req, res) => {
   }
 }
 
-export default withMethod(withSessionAuthentication(handler), ["GET"])
+export default withMethod(withSessionAuthentication(handler), ["GET", "POST"])
