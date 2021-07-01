@@ -12,7 +12,7 @@ const handler = async (req, res) => {
     if (req.method === "GET") {
       results = await getContact(id)
     } else if (req.method === "DELETE") {
-      results = await deleteContact({ tags: req.body, id })
+      results = await deleteContact(id)
     } else if (req.method === "PUT") {
       results = await putContact({ tags: req.body, id })
     } else if (req.method === "PATCH") {

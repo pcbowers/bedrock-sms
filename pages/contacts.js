@@ -34,6 +34,16 @@ export function Tags({ values }) {
 export function Actions({ data, row, setData }) {
   return (
     <div className="flex item-center justify-center">
+      <Link href={`/contacts/${row.original.id}`}>
+        <a>
+          <div className="w-4 mr-2 transform hover:text-yellow-600 hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+        </a>
+      </Link>
       <button onClick={async () => {
         let newTags = prompt(`To update the tags for ${row.original.number}, simply write in your tags separated by a comma. Make sure each tag only contains lowercase letters a-z.`, row.original.tags.join(","))
         if (newTags !== null && new RegExp("^[a-z,]*$").test(newTags)) {
@@ -59,7 +69,7 @@ export function Actions({ data, row, setData }) {
           alert("Please try again. The tags must only include lowercase letters")
         }
       }}>
-        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+        <div className="w-4 mr-2 transform hover:text-yellow-600 hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
           </svg>
@@ -69,6 +79,7 @@ export function Actions({ data, row, setData }) {
         const sure = confirm(`Are you sure you want to delete ${row.original.number}?`)
         if (sure) {
           try {
+            console.log(row.original)
             await fetch(`/api/contacts/${row.original.id}`, { method: "DELETE" })
             const newData = data.filter(element => element.id !== row.original.id)
             setData(newData)
@@ -77,7 +88,7 @@ export function Actions({ data, row, setData }) {
           }
         }
       }}>
-        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+        <div className="w-4 mr-2 transform hover:text-yellow-600 hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
@@ -140,17 +151,16 @@ export default function EditContacts({ session }) {
     {
       Header: "Last Updated",
       accessor: "dateUpdated",
+      disableGlobalFilter: true,
       Cell: function DateCells({ cell: { value } }) {
         return new Date(value).toLocaleString("en-US", {
-          weekday: 'long',
           year: 'numeric',
-          month: 'long',
+          month: 'numeric',
           day: 'numeric',
           hour: 'numeric',
-          minute: 'numeric',
-          second: 'numeric'
+          minute: 'numeric'
         })
-      }
+      },
     },
     {
       Header: "Actions",

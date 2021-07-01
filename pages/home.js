@@ -56,7 +56,7 @@ export default function PrivateHome({ session }) {
               </a>
             </Link>
 
-            <Link href="/broadcast">
+            <Link href="/broadcasts">
               <a>
                 <div className="w-full max-w-xs text-center transition-all duration-500 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-2xl pb-3 rounded-lg">
                   <Image className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={BroadcastImage} alt="avatar" />

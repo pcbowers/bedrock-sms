@@ -9,6 +9,16 @@ const options = {
             clientSecret: process.env.GOOGLE_SECRET_ID
         }),
     ],
+    callbacks: {
+        async signIn(user, account, profile) {
+            const results = await (await fetch(`${process.env.NEXTAUTH_URL}/api/admins/${user.email}`)).json()
+            if (results.body) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
 }
 
 export default function auth(req, res) {
