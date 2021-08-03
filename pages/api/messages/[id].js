@@ -1,8 +1,7 @@
-import withTwilioAuthentication from '../../../lib/middleware/twilio_auth'
-import withSessionAuthentication from '../../../lib/middleware/session_auth'
-import withMethod from '../../../lib/middleware/method'
-
-import { updateLog, getLog } from '../../../lib/airtable_functions'
+import { getLog, updateLog } from "../../../lib/airtable_functions"
+import withMethod from "../../../lib/middleware/method"
+import withSessionAuthentication from "../../../lib/middleware/session_auth"
+import withTwilioAuthentication from "../../../lib/middleware/twilio_auth"
 
 const handler = async (req, res) => {
   const { id } = req.query
@@ -23,12 +22,13 @@ const handler = async (req, res) => {
 
       let deliveryData = []
 
-      let curDeliveryState = 0;
+      let curDeliveryState = 0
       while (curDeliveryState >= 0) {
         // get contact from body
         let contact = req.body[`DeliveryState[${curDeliveryState}]`]
 
-        if (contact) { // deilvery state exists
+        if (contact) {
+          // deilvery state exists
           // parse JSON
           contact = JSON.parse(contact)
 
@@ -38,7 +38,8 @@ const handler = async (req, res) => {
 
           // check the next delivery state
           curDeliveryState++
-        } else { // no more delivery states
+        } else {
+          // no more delivery states
           curDeliveryState = -1
         }
       }
@@ -49,6 +50,7 @@ const handler = async (req, res) => {
         body: {
           total: parseInt(req.body.Count),
           data: JSON.stringify(deliveryData),
+          data2: JSON.stringify(req.body),
           ...counts
         }
       })
@@ -60,4 +62,9 @@ const handler = async (req, res) => {
   }
 }
 
-export default withMethod(withTwilioAuthentication(withSessionAuthentication(handler, ["POST"]), ["GET"]), ["GET", "POST"])
+export default withMethod(
+  withTwilioAuthentication(withSessionAuthentication(handler, ["POST"]), [
+    "GET"
+  ]),
+  ["GET", "POST"]
+)
